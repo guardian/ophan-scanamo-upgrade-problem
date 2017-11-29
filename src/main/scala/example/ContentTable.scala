@@ -10,16 +10,13 @@ import scala.collection.JavaConversions._
 import scala.util.Try
 
 
-case class CAPIPodcast()
-
 case class CAPITag(
   id: String,
   `type`: String,
   sectionId: Option[String],
   sectionName: Option[String],
   webTitle: Option[String],
-  webUrl: Option[String],
-  podcast: Option[CAPIPodcast]
+  webUrl: Option[String]
 )
 
 
