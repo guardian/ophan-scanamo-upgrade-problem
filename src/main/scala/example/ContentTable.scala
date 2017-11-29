@@ -1,9 +1,6 @@
 package ophan.model
 
 import cats.syntax.either._
-
-import ophan.thrift.event.{Tag => OphanTag}
-import ophan.thrift.event.{MediaType => EventMediaType}
 import org.joda.time.{DateTime, DateTimeZone, Duration, LocalDate}
 import com.gu.scanamo._
 import com.gu.scanamo.syntax._
@@ -34,18 +31,6 @@ case class CAPINewspaperInfo(
   pageNumber: Int
 )
 
-case class CAPIMedia(
-  mediaType: EventMediaType,
-  id: String
-)
-
-object CAPIMedia {
-  implicit val capiMediaTypeFormat = DynamoFormat.coercedXmap[EventMediaType, Int, IllegalArgumentException](
-    EventMediaType.getOrUnknown
-  )(_.value)
-
-}
-
 case class CAPIContent(
   webUrl: String,
   host: Option[String],
@@ -74,7 +59,7 @@ case class CAPIContent(
   internalLinkCount: Option[Int],
   internalComposerCode: Option[String],
   duration: Option[Duration],
-  mediaElements: Option[List[CAPIMedia]],
+  // mediaElements: Option[List[CAPIMedia]],
   isCommentable: Option[Boolean],
   shortUrlPath: Option[String]
 ) {
@@ -101,7 +86,6 @@ object ContentTable {
   import com.gu.scanamo._
   import com.gu.scanamo.syntax._
   import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType._
-  // import CAPIMedia.capiMediaTypeFormat
   import CAPIContent.durationFormat
   import CAPIContent.utcDateTimeFormat
 
